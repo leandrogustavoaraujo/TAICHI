@@ -194,12 +194,11 @@ export default function PersonalizedResult({ state, onRestart }: PersonalizedRes
           </button>
         </div>
 
-        {/* 13. FAQ — última seção antes do disclaimer */}
+        {/* 13. FAQ — última seção antes do rodapé */}
         <FaqSection />
 
-        <p className="mx-auto mt-10 max-w-md text-center text-xs leading-relaxed text-ink/40">
-          Conteúdo educacional de atividade física. Respeite seus limites individuais e, quando
-          necessário, procure orientação profissional antes de iniciar uma nova prática.
+        <p className="mx-auto mt-10 max-w-md text-center text-xs font-semibold tracking-wide text-ink/40">
+          Tai Chi em Casa 45+ © 2026. Todos os direitos reservados.
         </p>
       </div>
 

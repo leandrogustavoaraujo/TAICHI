@@ -21,12 +21,10 @@ export const GUARANTEE_CONFIG: GuaranteeConfig | null = {
 }
 
 /**
- * Confirmed by Leandro: this product includes lifetime access to the
- * content/practices purchased in this offer (not to future premium
- * features that don't exist yet). Flip to false if that ever changes —
- * the trust badge row picks this up automatically.
+ * Keep the generic lifetime-access badge hidden: access is communicated
+ * according to the period of the plan selected in the offer cards.
  */
-export const LIFETIME_ACCESS_CONFIRMED = true
+export const LIFETIME_ACCESS_CONFIRMED = false
 
 export interface Testimonial {
   name: string
