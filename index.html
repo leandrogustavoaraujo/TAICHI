@@ -7,12 +7,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Meta Pixel -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        }
+        if (!f._fbq) f._fbq = n
+        n.push = n
+        n.loaded = true
+        n.version = '2.0'
+        n.queue = []
+        t = b.createElement(e)
+        t.async = true
+        t.src = v
+        s = b.getElementsByTagName(e)[0]
+        s.parentNode.insertBefore(t, s)
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
+      fbq('init', '989728143663966')
+      fbq('track', 'PageView')
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        alt=""
+        src="https://www.facebook.com/tr?id=989728143663966&ev=PageView&noscript=1"
+      />
+    </noscript>
+
+    <!-- UTMify Pixel -->
+    <script>
+      window.pixelId = '6a4cdbf16f0af078e4ec4a72'
+      const utmifyPixel = document.createElement('script')
+      utmifyPixel.async = true
+      utmifyPixel.defer = true
+      utmifyPixel.src = 'https://cdn.utmify.com.br/scripts/pixel/pixel.js'
+      document.head.appendChild(utmifyPixel)
+    </script>
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      async
+      defer
+    ></script>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

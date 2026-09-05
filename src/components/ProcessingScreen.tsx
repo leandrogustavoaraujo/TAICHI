@@ -51,9 +51,11 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
   }, [])
 
   return (
-    <div className="mx-auto flex min-h-[70vh] w-full max-w-lg animate-fadeSlideIn flex-col items-center justify-center px-4 py-12 text-center">
-      <div className="mb-8 h-14 w-14 animate-spin rounded-full border-[3px] border-sage-light border-t-forest" />
-      <h1 className="mb-6 text-2xl font-semibold sm:text-3xl">Estamos preparando seu plano.</h1>
+    <div className="mx-auto flex min-h-[78vh] w-full max-w-xl animate-fadeSlideIn flex-col items-center justify-center px-4 py-12 text-center">
+      <div className="w-full rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-card backdrop-blur-sm sm:p-9">
+      <div className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-forest">✦ Tai Chi em Casa 45+</div>
+      <h1 className="mb-2 text-[27px] sm:text-[34px]">Seu plano personalizado está sendo preparado</h1>
+      <p className="mb-7 text-[15px] text-ink/60">Estamos organizando seu ponto de partida com base nas suas respostas.</p>
 
       <div className="mb-8 w-full">
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-sage-light">
@@ -67,7 +69,7 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
         </div>
       </div>
 
-      <div className="w-full space-y-4">
+      <div className="w-full space-y-3">
         {STAGES.map((stage, index) => {
           const isDone = index < activeStage
           const isActive = index === activeStage
@@ -104,6 +106,7 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
             </div>
           )
         })}
+      </div>
       </div>
     </div>
   )

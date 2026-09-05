@@ -18,7 +18,7 @@ export const OFFER_CONFIG: OfferConfig = {
   price: 19.9,
   compareAtPrice: 119.9,
   currency: 'BRL',
-  checkoutUrl: '',
+  checkoutUrl: 'https://pay.wiapy.com/z7nvUEp9PaRQ',
 }
 
 export function formatPrice(value: number, currency: 'BRL' | 'USD'): string {

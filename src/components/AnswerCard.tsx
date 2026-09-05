@@ -14,8 +14,8 @@ export default function AnswerCard({ option, selected, withImage, onSelect }: An
       type="button"
       onClick={onSelect}
       aria-pressed={selected}
-      className={`focus-ring group flex w-full items-center gap-4 rounded-xl2 border-2 bg-white/80 p-3.5 text-left shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card sm:p-4 ${
-        selected ? 'border-forest bg-sage-light/60' : 'border-transparent'
+      className={`focus-ring group flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-forest/30 hover:shadow-soft sm:p-4 ${
+        selected ? 'border-forest bg-sage-light/60 shadow-soft' : 'border-sage-light/70 bg-white'
       }`}
     >
       {withImage && option.image && (

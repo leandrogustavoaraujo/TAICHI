@@ -14,8 +14,8 @@ export default function QuizHeader({
   showBack,
 }: QuizHeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-sage-light/70 bg-cream/90 backdrop-blur">
-      <div className="mx-auto flex max-w-xl items-center gap-3 px-4 py-3 sm:max-w-2xl">
+    <header className="sticky top-0 z-20 border-b border-white/70 bg-cream/85 shadow-[0_8px_28px_-24px_rgba(23,61,48,.65)] backdrop-blur-xl">
+      <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 py-3">
         {showBack ? (
           <button
             type="button"
@@ -37,6 +37,9 @@ export default function QuizHeader({
           <div className="h-9 w-9 shrink-0" />
         )}
         <div className="flex-1">
+          <div className="mb-1 text-center text-[10px] font-extrabold uppercase tracking-[0.18em] text-forest/70">
+            Tai Chi em Casa 45+
+          </div>
           {questionNumber ? (
             <ProgressBar current={questionNumber} total={totalQuestions} />
           ) : (

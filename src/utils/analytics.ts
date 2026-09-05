@@ -20,7 +20,11 @@ export function track(event: AnalyticsEvent, payload: Record<string, unknown> = 
   }
 
   if (typeof w.fbq === 'function') {
-    w.fbq('trackCustom', event, payload)
+    if (event === 'checkout_clicked') {
+      w.fbq('track', 'InitiateCheckout', payload)
+    } else {
+      w.fbq('trackCustom', event, payload)
+    }
   }
 
   if (Array.isArray(w.dataLayer)) {

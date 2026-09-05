@@ -15,15 +15,15 @@ export default {
         ink: '#173226',
       },
       fontFamily: {
-        display: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Lora"', 'Georgia', 'serif'],
         body: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         xl2: '1.25rem',
       },
       boxShadow: {
-        card: '0 8px 30px -12px rgba(23, 61, 48, 0.25)',
-        soft: '0 4px 18px -6px rgba(23, 61, 48, 0.18)',
+        card: '0 22px 60px -28px rgba(23, 61, 48, 0.36)',
+        soft: '0 10px 28px -18px rgba(23, 61, 48, 0.24)',
       },
       keyframes: {
         fadeSlideIn: {

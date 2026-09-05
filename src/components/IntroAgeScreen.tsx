@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import AnswerCard from './AnswerCard'
 import { QUIZ_QUESTIONS } from '../data/quizQuestions'
 
 const MICROBENEFITS = [
@@ -34,53 +33,66 @@ export default function IntroAgeScreen({ currentValue, onSelectAge }: IntroAgeSc
   const activeValue = pendingValue ?? currentValue
 
   return (
-    <div className="mx-auto w-full max-w-xl animate-fadeSlideIn px-4 py-8 sm:max-w-2xl sm:py-14">
-      <div className="mb-8 text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-sage-light/70 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-forest-deep">
-          Tai Chi em Casa 45+
+    <div className="mx-auto w-full max-w-3xl animate-fadeSlideIn px-4 py-5 sm:py-9">
+      <div className="overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/85 shadow-card backdrop-blur-sm">
+        <div className="px-5 pb-5 pt-6 text-center sm:px-9 sm:pt-8">
+          <div className="mb-4 flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-forest">
+            <span aria-hidden="true">✦</span> Tai Chi em Casa 45+
+          </div>
+          <div className="mx-auto mb-5 inline-flex rounded-full bg-sage-light/65 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-forest-deep">
+            Plano 100% personalizado
+          </div>
+          <h1 className="mx-auto mb-4 max-w-2xl text-balance text-[30px] sm:text-[42px]">
+            Volte a se movimentar com mais leveza em apenas{' '}
+            <span className="text-forest">7 minutos por dia</span>
+          </h1>
+          <p className="mx-auto mb-6 max-w-xl text-[16px] leading-relaxed text-ink/70 sm:text-[17px]">
+            Descubra um ponto de partida de Tai Chi feito para sua idade, sua rotina e o seu ritmo.
+          </p>
+          <div className="relative mx-auto mb-7 aspect-[16/8.4] max-w-xl overflow-hidden rounded-2xl shadow-soft">
+            <img
+              src="/images/quiz/reinforcement-start.webp"
+              alt="Pessoa praticando Tai Chi ao ar livre"
+              className="h-full w-full object-cover object-[center_35%]"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/75 to-transparent px-5 pb-4 pt-12 text-left text-sm font-semibold text-cream">
+              Movimentos suaves, guiados e sem equipamentos
+            </div>
+          </div>
+
+          <h2 className="mb-4 text-center text-xl sm:text-2xl">{AGE_QUESTION.headline}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {AGE_QUESTION.options.map((option) => {
+              const selected = activeValue === option.value
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => handleSelect(option.value)}
+                  className={`focus-ring flex min-h-14 items-center justify-between rounded-2xl border-2 px-5 py-3 text-left text-[16px] font-bold transition-all hover:-translate-y-0.5 hover:shadow-soft ${
+                    selected
+                      ? 'border-forest bg-forest text-cream'
+                      : 'border-sage-light bg-cream/70 text-forest-deep hover:border-forest/35'
+                  }`}
+                >
+                  <span>{option.label}</span>
+                  <span aria-hidden="true" className="text-lg">→</span>
+                </button>
+              )
+            })}
+          </div>
+          <p className="mt-5 text-xs font-semibold text-ink/50">Leva menos de 3 minutos</p>
         </div>
-        <h1 className="mb-5 text-balance text-[28px] font-semibold leading-tight sm:text-[36px]">
-          Volte a se movimentar depois dos 45 com apenas{' '}
-          <span className="text-forest">7 minutos</span> de Tai Chi por dia.
-        </h1>
-        <p className="mx-auto mb-6 max-w-md text-[16px] leading-relaxed text-ink/75 sm:text-[17px]">
-          Responda algumas perguntas rápidas e descubra um plano de Tai Chi em casa adaptado ao
-          seu nível, à sua rotina e ao seu ponto de partida.
-        </p>
-
-        <ul className="mx-auto mb-8 flex max-w-md flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          {MICROBENEFITS.map((item) => (
-            <li key={item} className="flex items-center gap-1.5 text-sm font-medium text-ink/70">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="shrink-0 text-forest" aria-hidden="true">
-                <circle cx="12" cy="12" r="12" fill="currentColor" fillOpacity="0.15" />
-                <path
-                  d="M7 12.5l3 3 7-7"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              {item}
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <h2 className="mb-4 text-center text-lg font-semibold text-forest-deep sm:text-xl">
-        {AGE_QUESTION.headline}
-      </h2>
-      <div className="flex flex-col gap-3">
-        {AGE_QUESTION.options.map((option) => (
-          <AnswerCard
-            key={option.value}
-            option={option}
-            selected={activeValue === option.value}
-            withImage
-            onSelect={() => handleSelect(option.value)}
-          />
+      <ul className="mx-auto mt-5 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2">
+        {MICROBENEFITS.map((item) => (
+          <li key={item} className="flex items-center gap-1.5 text-xs font-semibold text-ink/55 sm:text-sm">
+            <span className="text-forest" aria-hidden="true">✓</span>{item}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }

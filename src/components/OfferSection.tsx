@@ -19,7 +19,7 @@ export default function OfferSection({ utm, chips }: OfferSectionProps) {
     track('checkout_clicked')
     if (!OFFER_CONFIG.checkoutUrl) return
     const url = appendUtmToUrl(OFFER_CONFIG.checkoutUrl, utm)
-    window.location.href = url
+    window.location.assign(url)
   }
 
   return (

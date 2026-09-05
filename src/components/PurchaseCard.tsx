@@ -117,6 +117,7 @@ export default function PurchaseCard({ chips, onCheckout, hasCheckoutUrl }: Purc
         )}
 
         <PrimaryCTA
+          aria-label="Ir para o checkout e desbloquear meu plano"
           onClick={(e) => {
             e.stopPropagation()
             onCheckout()
@@ -124,7 +125,7 @@ export default function PurchaseCard({ chips, onCheckout, hasCheckoutUrl }: Purc
           disabled={!hasCheckoutUrl}
           className="w-full animate-glowPulse !bg-terracotta text-cream hover:!bg-terracotta-soft sm:w-full"
         >
-          Quero desbloquear meu plano
+          Quero desbloquear meu plano agora
         </PrimaryCTA>
         <p className="mt-3 text-center text-xs text-cream/55">
           Pague e receba o plano por e-mail

@@ -24,7 +24,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background: var(--color-bg);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(168, 189, 168, 0.22), transparent 32rem),
+    radial-gradient(circle at 92% 8%, rgba(217, 155, 74, 0.14), transparent 28rem),
+    var(--color-bg);
   color: var(--color-text);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -37,15 +40,28 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 800 !important;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
   color: var(--color-primary-deep);
 }
 
 button {
   font-family: inherit;
+}
+
+button:not(:disabled) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 ::selection {
