@@ -8,6 +8,8 @@ import ProcessingScreen from './components/ProcessingScreen'
 import PersonalizedResult from './components/PersonalizedResult'
 import UrgencyTopBar from './components/UrgencyTopBar'
 import HealthProfileScreen from './components/HealthProfileScreen'
+import BodyProfileScreen from './components/BodyProfileScreen'
+import NewsProofScreen from './components/NewsProofScreen'
 import { QUIZ_QUESTIONS } from './data/quizQuestions'
 import { useQuizFlow } from './hooks/useQuizFlow'
 import { track } from './utils/analytics'
@@ -26,6 +28,7 @@ export default function App() {
     advanceFromReinforcement,
     finishProcessing,
     restart,
+    goToStep,
   } = useQuizFlow()
 
   useEffect(() => {
@@ -93,6 +96,14 @@ export default function App() {
             currentValue={state.answers}
             onSubmit={saveHealthProfile}
           />
+        )}
+
+        {currentStep === 'bodyProfile' && (
+          <BodyProfileScreen answers={state.answers} onContinue={() => goToStep('newsProof')} />
+        )}
+
+        {currentStep === 'newsProof' && (
+          <NewsProofScreen onContinue={() => goToStep('q2')} />
         )}
 
         {currentQuestion && !isBodyFocusStep && (

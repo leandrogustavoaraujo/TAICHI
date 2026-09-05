@@ -7,13 +7,19 @@ interface ProcessingStage {
 }
 
 const STAGES: ProcessingStage[] = [
-  { label: 'Analisando seu ponto de partida...', done: 'nível atual identificado' },
-  { label: 'Ajustando sua intensidade...', done: 'ritmo inicial definido' },
-  { label: 'Organizando sua rotina...', done: 'duração e frequência configuradas' },
-  { label: 'Preparando sua jornada inicial...', done: 'jornada inicial pronta' },
+  { label: 'Analisando seu perfil...', done: 'Perfil analisado' },
+  { label: 'Calculando seu metabolismo...', done: 'Metabolismo calculado' },
+  { label: 'Ajustando o nível de atividade...', done: 'Nível de atividade ajustado' },
+  { label: 'Criando seu plano personalizado...', done: 'Plano personalizado criado' },
 ]
 
-const STAGE_DURATION_MS = 820 // ~4 stages * 820ms ≈ 3.3s, within the 2.8–4s spec range
+const RESULT_IMAGES = [
+  '/images/quiz/results/transformacao-real-1.webp',
+  '/images/quiz/results/transformacao-real-2.webp',
+  '/images/quiz/results/transformacao-real-3.webp',
+]
+
+const STAGE_DURATION_MS = 1550
 const TOTAL_DURATION_MS = STAGE_DURATION_MS * STAGES.length + 250
 const PROGRESS_TICK_MS = 40
 
@@ -24,6 +30,7 @@ interface ProcessingScreenProps {
 export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
   const [activeStage, setActiveStage] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [imageIndex, setImageIndex] = useState(0)
 
   useEffect(() => {
     track('processing_started')
@@ -42,10 +49,14 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
       setProgress(pct)
       if (pct >= 100) window.clearInterval(progressInterval)
     }, PROGRESS_TICK_MS)
+    const imageInterval = window.setInterval(() => {
+      setImageIndex((current) => (current + 1) % RESULT_IMAGES.length)
+    }, 1800)
 
     return () => {
       timers.forEach((t) => window.clearTimeout(t))
       window.clearInterval(progressInterval)
+      window.clearInterval(imageInterval)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -54,7 +65,7 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
     <div className="mx-auto flex min-h-[78vh] w-full max-w-xl animate-fadeSlideIn flex-col items-center justify-center px-4 py-12 text-center">
       <div className="w-full rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-card backdrop-blur-sm sm:p-9">
       <div className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-forest">✦ Tai Chi em Casa 45+</div>
-      <h1 className="mb-2 text-[27px] sm:text-[34px]">Seu plano personalizado está sendo preparado</h1>
+      <h1 className="mb-2 text-[27px] sm:text-[34px]">Seu plano personalizado de Tai Chi está sendo feito!</h1>
       <p className="mb-7 text-[15px] text-ink/60">Estamos organizando seu ponto de partida com base nas suas respostas.</p>
 
       <div className="mb-8 w-full">
@@ -106,6 +117,17 @@ export default function ProcessingScreen({ onDone }: ProcessingScreenProps) {
             </div>
           )
         })}
+      </div>
+
+      <div className="mt-7 overflow-hidden rounded-[1.5rem] bg-white shadow-card">
+        <img src={RESULT_IMAGES[imageIndex]} alt="Representação visual de evolução corporal" className="aspect-square w-full object-cover transition-opacity duration-300" />
+        <div className="p-4">
+          <p className="font-serif text-lg font-bold text-forest">Movimento, energia e confiança podem evoluir juntos.</p>
+          <div className="mt-3 flex justify-center gap-2" aria-hidden="true">
+            {RESULT_IMAGES.map((image, index) => <span key={image} className={`h-2 rounded-full ${index === imageIndex ? 'w-5 bg-forest' : 'w-2 bg-sage-light'}`} />)}
+          </div>
+          <p className="mt-3 text-[11px] text-ink/45">Resultados variam de pessoa para pessoa.</p>
+        </div>
       </div>
       </div>
     </div>

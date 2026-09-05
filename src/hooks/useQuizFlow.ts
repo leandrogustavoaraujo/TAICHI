@@ -13,6 +13,8 @@ import { captureUtmFromUrl } from '../utils/utm'
 export const STEP_ORDER = [
   'intro',
   'healthProfile',
+  'bodyProfile',
+  'newsProof',
   'q2',
   'reinforcement1',
   'q3',
@@ -32,8 +34,10 @@ export type StepId = (typeof STEP_ORDER)[number]
 function questionNumberForStep(step: string): number | null {
   if (step === 'intro') return 1
   if (step === 'healthProfile') return 2
+  if (step === 'bodyProfile') return 3
+  if (step === 'newsProof') return 4
   const match = /^q(\d)$/.exec(step)
-  return match ? Number(match[1]) + 1 : null
+  return match ? Number(match[1]) + 3 : null
 }
 
 export function useQuizFlow() {
@@ -166,7 +170,7 @@ export function useQuizFlow() {
     state,
     currentStep,
     questionNumber,
-    totalQuestions: QUIZ_QUESTIONS.length + 1,
+    totalQuestions: QUIZ_QUESTIONS.length + 3,
     answeredCount,
     start,
     answerQuestion,

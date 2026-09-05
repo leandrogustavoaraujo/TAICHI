@@ -21,10 +21,13 @@ const DESIRED_TYPES: { value: DesiredBodyType; label: string; image: string }[] 
   { value: 'toned', label: 'Torneada', image: '/images/quiz/body-cards/corpo-desejado-torneada.webp' },
   { value: 'defined', label: 'Definida', image: '/images/quiz/body-cards/corpo-desejado-definida.webp' },
 ]
-const BODY_REGIONS: { value: ReferenceBodyRegion; label: string; icon?: string }[] = [
-  { value: 'breasts', label: 'Seios' }, { value: 'arms', label: 'Braços' }, { value: 'belly', label: 'Barriga' },
-  { value: 'neck', label: 'Pescoço' }, { value: 'glutes', label: 'Glúteos' }, { value: 'thighs', label: 'Coxas' },
-  { value: 'whole_body', label: 'Quero cuidar do corpo todo', icon: '✅' },
+const BODY_REGIONS: { value: Exclude<ReferenceBodyRegion, 'whole_body'>; label: string; image: string }[] = [
+  { value: 'breasts', label: 'Seios', image: '/images/quiz/regions/seios.webp' },
+  { value: 'arms', label: 'Braços', image: '/images/quiz/regions/bracos.webp' },
+  { value: 'belly', label: 'Barriga', image: '/images/quiz/regions/barriga.webp' },
+  { value: 'neck', label: 'Pescoço', image: '/images/quiz/regions/pescoco.webp' },
+  { value: 'glutes', label: 'Glúteos', image: '/images/quiz/regions/gluteos.webp' },
+  { value: 'thighs', label: 'Coxas', image: '/images/quiz/regions/coxas.webp' },
 ]
 
 export default function HealthProfileScreen({ currentValue, onSubmit }: Props) {
@@ -53,7 +56,7 @@ export default function HealthProfileScreen({ currentValue, onSubmit }: Props) {
 
   if (screen === 2) return card(<><h1 className="mb-6 text-center text-[26px]">Qual corpo você quer conquistar?</h1><div className="grid grid-cols-3 gap-2.5 sm:gap-3">{DESIRED_TYPES.map((item) => <button key={item.value} type="button" onClick={() => { setDesiredBodyType(item.value); setScreen(3) }} className="focus-ring overflow-hidden rounded-2xl border-2 border-white/80 bg-white/70 px-2 pb-4 pt-2 text-center text-sm font-semibold transition hover:border-forest/40 sm:text-base"><div className="mb-2 h-44 w-full overflow-hidden rounded-xl bg-sage-light/45 sm:h-56"><img src={item.image} alt={`Corpo desejado: ${item.label}`} className="h-full w-full object-contain object-bottom" loading="lazy" /></div>{item.label}</button>)}</div></>)
 
-  if (screen === 3) return card(<><h1 className="mb-2 text-center text-[26px]">Em quais regiões do corpo você gostaria de melhorar?</h1><p className="mb-5 text-center text-sm text-ink/55">Pode selecionar quantas quiser.</p>{BODY_REGIONS.map((item) => option(item.label, referenceBodyRegions.includes(item.value), () => toggleRegion(item.value), item.icon))}<PrimaryCTA onClick={() => setScreen(4)} disabled={referenceBodyRegions.length === 0} className="mt-2 w-full sm:w-full">Continuar</PrimaryCTA></>)
+  if (screen === 3) return card(<><h1 className="mb-2 text-center text-[26px]">Em quais regiões do corpo você gostaria de melhorar?</h1><p className="mb-5 text-center text-sm text-ink/55">Pode selecionar quantas quiser.</p><div className="mb-4 grid grid-cols-3 gap-3">{BODY_REGIONS.map((item) => { const selected = referenceBodyRegions.includes(item.value); return <button key={item.value} type="button" aria-pressed={selected} onClick={() => toggleRegion(item.value)} className={`focus-ring overflow-hidden rounded-2xl border-2 bg-white p-2 text-center text-sm font-semibold transition ${selected ? 'border-forest ring-2 ring-forest/15' : 'border-white hover:border-forest/30'}`}><img src={item.image} alt={item.label} className="mb-2 aspect-square w-full rounded-xl object-cover" loading="lazy" />{item.label}</button> })}</div>{option('Quero cuidar do corpo todo', referenceBodyRegions.includes('whole_body'), () => toggleRegion('whole_body'), '✅')}<PrimaryCTA onClick={() => setScreen(4)} disabled={referenceBodyRegions.length === 0} className="mt-2 w-full sm:w-full">Continuar</PrimaryCTA></>)
 
   const measureScreen = (title: string, value: number, setValue: (value: number) => void, min: number, max: number, suffix: string, helper: string | undefined, next: () => void, cta: string, testId: string) => card(<><h1 className="mb-5 text-center text-[26px]">{title}</h1><div className="mb-5 text-center"><span className="text-5xl font-bold text-forest-deep">{value}</span><span className="ml-1 text-xl text-ink/50">{suffix}</span></div><input data-testid={testId} aria-label={title} type="range" min={min} max={max} value={value} onChange={(event) => setValue(Number(event.target.value))} className="h-3 w-full cursor-pointer accent-forest" /><div className="mb-5 mt-1 flex justify-between text-xs text-ink/45"><span>{min} {suffix}</span><span>{max} {suffix}</span></div>{helper && <p className="mb-5 text-sm leading-relaxed text-ink/60">{helper}</p>}<PrimaryCTA onClick={next} className="w-full sm:w-full">{cta}</PrimaryCTA></>)
 
