@@ -24,10 +24,10 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     headline: 'Qual é a sua faixa de idade?',
     layout: 'image-cards',
     options: [
+      { value: 'under_45', label: 'Até 44 anos', image: 'age-45-54' },
       { value: '45_54', label: '45–54 anos', image: 'age-45-54' },
       { value: '55_64', label: '55–64 anos', image: 'age-55-64' },
-      { value: '65_74', label: '65–74 anos', image: 'age-65-74' },
-      { value: '75_plus', label: '75 anos ou mais', image: 'age-75-plus' },
+      { value: '65_plus', label: '65 anos ou mais', image: 'age-65-74' },
     ],
   },
   {

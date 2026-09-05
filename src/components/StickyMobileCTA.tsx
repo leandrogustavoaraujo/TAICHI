@@ -6,42 +6,33 @@ import type { UtmParams } from '../data/types'
 
 interface StickyMobileCTAProps {
   showAfterId: string
-  hideWhenId: string
   utm: UtmParams
 }
 
-export default function StickyMobileCTA({ showAfterId, hideWhenId, utm }: StickyMobileCTAProps) {
+export default function StickyMobileCTA({ showAfterId, utm }: StickyMobileCTAProps) {
   const premiumPlan = OFFER_PLANS.find((plan) => plan.id === 'trimestral') ?? OFFER_PLANS[0]
-  const [pastIntro, setPastIntro] = useState(false)
-  const [offerVisible, setOfferVisible] = useState(false)
+  const [pastTrigger, setPastTrigger] = useState(false)
 
   useEffect(() => {
-    const sentinel = document.getElementById(showAfterId)
-    const offer = document.getElementById(hideWhenId)
-    if (!sentinel || !offer) return
+    const trigger = document.getElementById(showAfterId)
+    if (!trigger) return
 
-    const introObserver = new IntersectionObserver(
-      ([entry]) => setPastIntro(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+    const triggerObserver = new IntersectionObserver(
+      ([entry]) => setPastTrigger(!entry.isIntersecting && entry.boundingClientRect.bottom < 0),
       { threshold: 0 },
     )
-    const offerObserver = new IntersectionObserver(([entry]) => setOfferVisible(entry.isIntersecting), {
-      threshold: 0.15,
-    })
-
-    introObserver.observe(sentinel)
-    offerObserver.observe(offer)
+    triggerObserver.observe(trigger)
     return () => {
-      introObserver.disconnect()
-      offerObserver.disconnect()
+      triggerObserver.disconnect()
     }
-  }, [showAfterId, hideWhenId])
+  }, [showAfterId])
 
-  const visible = pastIntro && !offerVisible
+  const visible = pastTrigger
 
   const handleClick = () => {
     track('checkout_clicked')
     if (!premiumPlan.checkoutUrl) {
-      document.getElementById(hideWhenId)?.scrollIntoView({ behavior: 'smooth' })
+      document.getElementById(showAfterId)?.scrollIntoView({ behavior: 'smooth' })
       return
     }
     window.location.href = appendUtmToUrl(premiumPlan.checkoutUrl, utm)

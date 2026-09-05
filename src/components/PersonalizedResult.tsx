@@ -197,12 +197,12 @@ export default function PersonalizedResult({ state, onRestart }: PersonalizedRes
         {/* 13. FAQ — última seção antes do rodapé */}
         <FaqSection />
 
-        <p className="mx-auto mt-10 max-w-md text-center text-xs font-semibold tracking-wide text-ink/40">
+        <footer id="site-footer" className="mx-auto mt-10 max-w-md px-4 pb-28 pt-5 text-center text-xs font-semibold tracking-wide text-ink/40 sm:pb-6">
           Tai Chi em Casa 45+ © 2026. Todos os direitos reservados.
-        </p>
+        </footer>
       </div>
 
-      <StickyMobileCTA showAfterId="result-intro" hideWhenId="offer" utm={state.utm} />
+      <StickyMobileCTA showAfterId="offer" utm={state.utm} />
     </div>
   )
 }

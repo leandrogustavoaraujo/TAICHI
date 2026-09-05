@@ -1,4 +1,4 @@
-export type AgeRange = '45_54' | '55_64' | '65_74' | '75_plus'
+export type AgeRange = 'under_45' | '45_54' | '55_64' | '65_plus'
 export type ActivityLevel = 'sedentary' | 'low' | 'somewhat_active' | 'active'
 export type TaiChiExperience = 'never' | 'tried' | 'past' | 'current'
 export type MainGoal =

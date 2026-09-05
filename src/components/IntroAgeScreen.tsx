@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { QUIZ_QUESTIONS } from '../data/quizQuestions'
 
 const MICROBENEFITS = [
-  'Para iniciantes 45+',
+  'Para iniciantes de todas as idades',
   'Comece com apenas 7 minutos',
   'Faça em casa',
   'Sem equipamentos',
