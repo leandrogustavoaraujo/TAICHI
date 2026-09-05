@@ -22,6 +22,10 @@ export type IntensityPreference =
   | 'adaptive'
 export type WeeklyFrequency = '2' | '3' | '4' | '5_plus' | 'recommended'
 export type BodyFocusArea = 'shoulders_arms' | 'torso_back' | 'hips' | 'legs' | 'full_body'
+export type CurrentBodyType = 'slim' | 'skinny_fat' | 'overweight'
+export type DesiredBodyType = 'slim' | 'toned' | 'defined'
+export type HealthConsideration = 'weight' | 'pain' | 'fatigue' | 'mind' | 'sleep' | 'health'
+export type ReferenceBodyRegion = 'breasts' | 'arms' | 'belly' | 'neck' | 'glutes' | 'thighs' | 'whole_body'
 
 export interface QuizAnswers {
   ageRange?: AgeRange
@@ -33,6 +37,13 @@ export interface QuizAnswers {
   intensityPreference?: IntensityPreference
   weeklyFrequency?: WeeklyFrequency
   bodyFocus?: BodyFocusArea[]
+  currentBodyType?: CurrentBodyType
+  desiredBodyType?: DesiredBodyType
+  heightCm?: number
+  currentWeightKg?: number
+  targetWeightKg?: number
+  healthConsiderations?: HealthConsideration[]
+  referenceBodyRegions?: ReferenceBodyRegion[]
 }
 
 export type QuestionKey = keyof QuizAnswers

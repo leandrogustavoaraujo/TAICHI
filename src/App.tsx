@@ -7,6 +7,7 @@ import ReinforcementScreen from './components/ReinforcementScreen'
 import ProcessingScreen from './components/ProcessingScreen'
 import PersonalizedResult from './components/PersonalizedResult'
 import UrgencyTopBar from './components/UrgencyTopBar'
+import HealthProfileScreen from './components/HealthProfileScreen'
 import { QUIZ_QUESTIONS } from './data/quizQuestions'
 import { useQuizFlow } from './hooks/useQuizFlow'
 import { track } from './utils/analytics'
@@ -20,6 +21,7 @@ export default function App() {
     start,
     answerQuestion,
     answerMultiSelect,
+    saveHealthProfile,
     goBack,
     advanceFromReinforcement,
     finishProcessing,
@@ -83,6 +85,13 @@ export default function App() {
             question={currentQuestion}
             currentValue={state.answers.bodyFocus}
             onSubmit={handleBodyFocusSubmit}
+          />
+        )}
+
+        {currentStep === 'healthProfile' && (
+          <HealthProfileScreen
+            currentValue={state.answers}
+            onSubmit={saveHealthProfile}
           />
         )}
 

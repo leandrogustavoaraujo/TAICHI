@@ -12,6 +12,7 @@ import { captureUtmFromUrl } from '../utils/utm'
 // do not count toward the 1-8 question progress indicator.
 export const STEP_ORDER = [
   'intro',
+  'healthProfile',
   'q2',
   'reinforcement1',
   'q3',
@@ -30,8 +31,9 @@ export type StepId = (typeof STEP_ORDER)[number]
 
 function questionNumberForStep(step: string): number | null {
   if (step === 'intro') return 1
+  if (step === 'healthProfile') return 2
   const match = /^q(\d)$/.exec(step)
-  return match ? Number(match[1]) : null
+  return match ? Number(match[1]) + 1 : null
 }
 
 export function useQuizFlow() {
@@ -111,6 +113,23 @@ export function useQuizFlow() {
     [currentStepIndex],
   )
 
+  const saveHealthProfile = useCallback(
+    (values: Pick<QuizAnswers, 'currentBodyType' | 'desiredBodyType' | 'heightCm' | 'currentWeightKg' | 'targetWeightKg' | 'healthConsiderations' | 'referenceBodyRegions'>) => {
+      setState((prev) => {
+        const nextIndex = currentStepIndex + 1
+        const nextStep = STEP_ORDER[nextIndex] ?? 'result'
+        return {
+          ...prev,
+          answers: { ...prev.answers, ...values },
+          currentStep: nextStep,
+          startedAt: prev.startedAt ?? new Date().toISOString(),
+        }
+      })
+      track('question_answered', { key: 'healthProfile' })
+    },
+    [currentStepIndex],
+  )
+
   const advanceFromReinforcement = useCallback(() => {
     setState((prev) => {
       const idx = STEP_ORDER.indexOf(prev.currentStep as StepId)
@@ -147,11 +166,12 @@ export function useQuizFlow() {
     state,
     currentStep,
     questionNumber,
-    totalQuestions: QUIZ_QUESTIONS.length,
+    totalQuestions: QUIZ_QUESTIONS.length + 1,
     answeredCount,
     start,
     answerQuestion,
     answerMultiSelect,
+    saveHealthProfile,
     goBack,
     advanceFromReinforcement,
     finishProcessing,

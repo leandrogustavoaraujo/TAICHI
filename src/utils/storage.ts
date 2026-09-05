@@ -1,6 +1,6 @@
 import type { QuizState } from '../data/types'
 
-const STORAGE_KEY = 'taichi45_quiz_state_v1'
+const STORAGE_KEY = 'taichi45_quiz_state_v2'
 
 export const INITIAL_STATE: QuizState = {
   answers: {},

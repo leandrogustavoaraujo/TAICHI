@@ -23,6 +23,16 @@ import SocialProofSection from './SocialProofSection'
 import GuaranteeSection from './GuaranteeSection'
 import OfferSection from './OfferSection'
 import StickyMobileCTA from './StickyMobileCTA'
+import type { HealthConsideration } from '../data/types'
+
+const HEALTH_LABEL: Record<HealthConsideration, string> = {
+  weight: 'Estar acima do peso',
+  pain: 'Corpo dolorido e travado',
+  fatigue: 'Cansaço e falta de energia',
+  mind: 'Mente acelerada',
+  sleep: 'Sono ruim',
+  health: 'Cuidar da saúde',
+}
 
 interface PersonalizedResultProps {
   state: QuizState
@@ -50,6 +60,13 @@ export default function PersonalizedResult({ state, onRestart }: PersonalizedRes
     : (profileDef?.pace ?? 'Leve e progressivo')
 
   const summaryRows = [
+    answers.heightCm && { label: 'Altura', value: `${answers.heightCm} cm` },
+    answers.currentWeightKg && { label: 'Peso atual informado', value: `${answers.currentWeightKg} kg` },
+    answers.targetWeightKg && { label: 'Meta informada', value: `${answers.targetWeightKg} kg` },
+    answers.healthConsiderations && answers.healthConsiderations.length > 0 && {
+      label: 'Cuidados considerados',
+      value: answers.healthConsiderations.map((item) => HEALTH_LABEL[item]).join(', '),
+    },
     answers.activityLevel && {
       label: 'Atividade atual',
       value: ACTIVITY_LABEL[answers.activityLevel],
