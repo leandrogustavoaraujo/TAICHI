@@ -24,15 +24,7 @@ export default function PurchaseCard({ chips, onCheckout, hasCheckoutUrl }: Purc
   const checklist = [...chips, ...STATIC_HIGHLIGHTS].slice(0, 8)
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={onCheckout}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') onCheckout()
-      }}
-      className="group mb-8 cursor-pointer overflow-hidden rounded-xl2 bg-forest-deep text-cream shadow-card ring-1 ring-forest-deep/40 transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
-    >
+    <div className="mb-8 overflow-hidden rounded-xl2 bg-forest-deep text-cream shadow-card ring-1 ring-forest-deep/40">
       <div className="flex items-center gap-4 border-b border-cream/10 p-5 sm:p-7">
         <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl2 sm:h-20 sm:w-20">
           <ImageSlot slot="product-cover" alt={OFFER_CONFIG.productName} aspect="square" rounded="rounded-none" />
@@ -118,10 +110,7 @@ export default function PurchaseCard({ chips, onCheckout, hasCheckoutUrl }: Purc
 
         <PrimaryCTA
           aria-label="Ir para o checkout e desbloquear meu plano"
-          onClick={(e) => {
-            e.stopPropagation()
-            onCheckout()
-          }}
+          onClick={onCheckout}
           disabled={!hasCheckoutUrl}
           className="w-full animate-glowPulse !bg-terracotta text-cream hover:!bg-terracotta-soft sm:w-full"
         >

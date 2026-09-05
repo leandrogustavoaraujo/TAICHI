@@ -6,16 +6,20 @@ type ProfileValues = Pick<QuizAnswers, 'currentBodyType' | 'desiredBodyType' | '
 
 interface Props { currentValue: QuizAnswers; onSubmit: (values: ProfileValues) => void }
 
-const BODY_TYPES: { value: CurrentBodyType; label: string }[] = [
-  { value: 'slim', label: 'Magra' }, { value: 'skinny_fat', label: 'Falsa Magra' }, { value: 'overweight', label: 'Acima do peso' },
+const BODY_TYPES: { value: CurrentBodyType; label: string; image: string }[] = [
+  { value: 'slim', label: 'Magra', image: '/images/quiz/body-cards/corpo-atual-magra.webp' },
+  { value: 'skinny_fat', label: 'Falsa Magra', image: '/images/quiz/body-cards/corpo-atual-falsa-magra.webp' },
+  { value: 'overweight', label: 'Acima do peso', image: '/images/quiz/body-cards/corpo-atual-acima-do-peso.webp' },
 ]
 const HEALTH_OPTIONS: { value: HealthConsideration; label: string; icon?: string }[] = [
   { value: 'weight', label: 'Estar acima do peso' }, { value: 'pain', label: 'Meu corpo vive dolorido e travado' },
   { value: 'fatigue', label: 'Vivo cansada e sem energia' }, { value: 'mind', label: 'Minha mente não desacelera' },
   { value: 'sleep', label: 'Durmo muito mal' }, { value: 'health', label: 'Só quero cuidar da saúde', icon: '❤️' },
 ]
-const DESIRED_TYPES: { value: DesiredBodyType; label: string }[] = [
-  { value: 'slim', label: 'Magra' }, { value: 'toned', label: 'Torneada' }, { value: 'defined', label: 'Definida' },
+const DESIRED_TYPES: { value: DesiredBodyType; label: string; image: string }[] = [
+  { value: 'slim', label: 'Magra', image: '/images/quiz/body-cards/corpo-desejado-magra.webp' },
+  { value: 'toned', label: 'Torneada', image: '/images/quiz/body-cards/corpo-desejado-torneada.webp' },
+  { value: 'defined', label: 'Definida', image: '/images/quiz/body-cards/corpo-desejado-definida.webp' },
 ]
 const BODY_REGIONS: { value: ReferenceBodyRegion; label: string; icon?: string }[] = [
   { value: 'breasts', label: 'Seios' }, { value: 'arms', label: 'Braços' }, { value: 'belly', label: 'Barriga' },
@@ -43,11 +47,11 @@ export default function HealthProfileScreen({ currentValue, onSubmit }: Props) {
     return withoutWhole.includes(value) ? withoutWhole.filter((item) => item !== value) : [...withoutWhole, value]
   })
 
-  if (screen === 0) return card(<><h1 className="mb-6 text-center text-[26px]">Escolha seu tipo de corpo atual:</h1><div className="grid grid-cols-3 gap-3">{BODY_TYPES.map((item) => <button key={item.value} type="button" onClick={() => { setCurrentBodyType(item.value); setScreen(1) }} className="focus-ring rounded-2xl border-2 border-white/80 bg-white/70 p-4 text-center font-semibold transition hover:border-forest/40"><div className="mx-auto mb-3 flex h-24 w-16 items-end justify-center rounded-full bg-sage-light/70" aria-hidden="true"><span className="text-4xl">♙</span></div>{item.label}</button>)}</div></>)
+  if (screen === 0) return card(<><h1 className="mb-6 text-center text-[26px]">Escolha seu tipo de corpo atual:</h1><div className="grid grid-cols-3 gap-2.5 sm:gap-3">{BODY_TYPES.map((item) => <button key={item.value} type="button" onClick={() => { setCurrentBodyType(item.value); setScreen(1) }} className="focus-ring overflow-hidden rounded-2xl border-2 border-white/80 bg-white/70 px-2 pb-4 pt-2 text-center text-sm font-semibold transition hover:border-forest/40 sm:text-base"><div className="mb-2 h-44 w-full overflow-hidden rounded-xl bg-sage-light/45 sm:h-56"><img src={item.image} alt={`Corpo atual: ${item.label}`} className="h-full w-full object-contain object-bottom" loading="eager" /></div>{item.label}</button>)}</div></>)
 
   if (screen === 1) return card(<><h1 className="mb-2 text-center text-[26px]">O que mais <span className="text-forest">incomoda</span> você hoje?</h1><p className="mb-5 text-center text-sm text-ink/55">Pode marcar mais de uma opção, se quiser.</p>{HEALTH_OPTIONS.map((item) => option(item.label, healthConsiderations.includes(item.value), () => toggleHealth(item.value), item.icon))}<PrimaryCTA onClick={() => setScreen(2)} disabled={healthConsiderations.length === 0} className="mt-2 w-full sm:w-full">Continuar</PrimaryCTA></>)
 
-  if (screen === 2) return card(<><h1 className="mb-6 text-center text-[26px]">Qual corpo você quer conquistar?</h1><div className="grid grid-cols-3 gap-3">{DESIRED_TYPES.map((item) => <button key={item.value} type="button" onClick={() => { setDesiredBodyType(item.value); setScreen(3) }} className="focus-ring rounded-2xl border-2 border-white/80 bg-white/70 p-4 text-center font-semibold transition hover:border-forest/40"><div className="mx-auto mb-3 flex h-24 w-16 items-end justify-center rounded-full bg-sage-light/70" aria-hidden="true"><span className="text-4xl">♙</span></div>{item.label}</button>)}</div></>)
+  if (screen === 2) return card(<><h1 className="mb-6 text-center text-[26px]">Qual corpo você quer conquistar?</h1><div className="grid grid-cols-3 gap-2.5 sm:gap-3">{DESIRED_TYPES.map((item) => <button key={item.value} type="button" onClick={() => { setDesiredBodyType(item.value); setScreen(3) }} className="focus-ring overflow-hidden rounded-2xl border-2 border-white/80 bg-white/70 px-2 pb-4 pt-2 text-center text-sm font-semibold transition hover:border-forest/40 sm:text-base"><div className="mb-2 h-44 w-full overflow-hidden rounded-xl bg-sage-light/45 sm:h-56"><img src={item.image} alt={`Corpo desejado: ${item.label}`} className="h-full w-full object-contain object-bottom" loading="lazy" /></div>{item.label}</button>)}</div></>)
 
   if (screen === 3) return card(<><h1 className="mb-2 text-center text-[26px]">Em quais regiões do corpo você gostaria de melhorar?</h1><p className="mb-5 text-center text-sm text-ink/55">Pode selecionar quantas quiser.</p>{BODY_REGIONS.map((item) => option(item.label, referenceBodyRegions.includes(item.value), () => toggleRegion(item.value), item.icon))}<PrimaryCTA onClick={() => setScreen(4)} disabled={referenceBodyRegions.length === 0} className="mt-2 w-full sm:w-full">Continuar</PrimaryCTA></>)
 
